@@ -20,6 +20,7 @@
 		00FFF8601E09977500015C59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00FFF85F1E09977500015C59 /* Assets.xcassets */; };
 		00FFF8631E09977500015C59 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00FFF8611E09977500015C59 /* LaunchScreen.storyboard */; };
 		A1E7539F21674A0600EA3F17 /* SwiftWebVCTitleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E7539E21674A0600EA3F17 /* SwiftWebVCTitleStyle.swift */; };
+		A1E753A121677E3000EA3F17 /* UINavigationBarController+ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E753A021677E3000EA3F17 /* UINavigationBarController+ProgressBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		00FFF8621E09977500015C59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		00FFF8641E09977500015C59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1E7539E21674A0600EA3F17 /* SwiftWebVCTitleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftWebVCTitleStyle.swift; sourceTree = "<group>"; };
+		A1E753A021677E3000EA3F17 /* UINavigationBarController+ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBarController+ProgressBar.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				0055F7A41E259F1A000ECD54 /* SwiftWebVCActivityChrome.swift */,
 				0055F7A51E259F1A000ECD54 /* SwiftWebVCActivitySafari.swift */,
 				A1E7539E21674A0600EA3F17 /* SwiftWebVCTitleStyle.swift */,
+				A1E753A021677E3000EA3F17 /* UINavigationBarController+ProgressBar.swift */,
 			);
 			name = SwiftWebVC;
 			path = ../SwiftWebVC;
@@ -215,6 +218,7 @@
 				A1E7539F21674A0600EA3F17 /* SwiftWebVCTitleStyle.swift in Sources */,
 				00FFF8591E09977500015C59 /* AppDelegate.swift in Sources */,
 				0055F7A91E259F1A000ECD54 /* SwiftWebVC.swift in Sources */,
+				A1E753A121677E3000EA3F17 /* UINavigationBarController+ProgressBar.swift in Sources */,
 				0055F7AA1E259F1A000ECD54 /* SwiftWebVCActivity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

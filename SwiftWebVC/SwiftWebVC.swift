@@ -70,6 +70,7 @@ public class SwiftWebVC: UIViewController {
         var tempWebView = WKWebView(frame: UIScreen.main.bounds)
         tempWebView.uiDelegate = self
         tempWebView.navigationDelegate = self
+        tempWebView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
         return tempWebView;
     }()
     
@@ -84,13 +85,18 @@ public class SwiftWebVC: UIViewController {
     
     deinit {
         webView.stopLoading()
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         webView.uiDelegate = nil;
         webView.navigationDelegate = nil;
     }
     
     public convenience init(urlString: String, sharingEnabled: Bool = true) {
         self.init(pageURL: URL(string: SwiftWebVC.sanitize(url: urlString))!, sharingEnabled: sharingEnabled)
+    }
+
+    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "estimatedProgress" {
+            navigationController?.setProgress(Float(webView.estimatedProgress), animated: true)
+        }
     }
 
     private static func sanitize(url: String) -> String {
@@ -170,11 +176,6 @@ public class SwiftWebVC: UIViewController {
         if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone) {
             self.navigationController?.setToolbarHidden(true, animated: true)
         }
-    }
-    
-    override public func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(true)
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
     ////////////////////////////////////////////////
@@ -303,14 +304,14 @@ extension SwiftWebVC: WKNavigationDelegate {
     
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         self.delegate?.didStartLoading()
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        navigationController?.showProgress()
         updateToolbarItems()
     }
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         self.delegate?.didFinishLoading(success: true)
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        
+        navigationController?.finishProgress()
+        navigationController?.cancelProgress()
         webView.evaluateJavaScript("document.title", completionHandler: {(response, error) in
             self.navBarTitle.text = response as! String?
             self.navBarTitle.textAlignment = .left
@@ -321,7 +322,7 @@ extension SwiftWebVC: WKNavigationDelegate {
     
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         self.delegate?.didFinishLoading(success: false)
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        navigationController?.cancelProgress()
         updateToolbarItems()
     }
     

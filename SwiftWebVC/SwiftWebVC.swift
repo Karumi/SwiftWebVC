@@ -74,8 +74,9 @@ public class SwiftWebVC: UIViewController {
     }()
     
     var request: URLRequest!
-    
-    var navBarTitle: UILabel!
+
+    var titleStyle: SwiftWebVCTitleStyle!
+    var navBarTitle: UIViewWithText!
     
     var sharingEnabled = true
     
@@ -126,21 +127,20 @@ public class SwiftWebVC: UIViewController {
         assert(self.navigationController != nil, "SVWebViewController needs to be contained in a UINavigationController. If you are presenting SVWebViewController modally, use SVModalWebViewController instead.")
         
         updateToolbarItems()
-        navBarTitle = UILabel()
-        navBarTitle.backgroundColor = UIColor.clear
+        titleStyle = titleStyle != nil ? titleStyle : PlainSwiftWebVCTitleStyle()
+        let bar = navigationController!.navigationBar
+        navBarTitle = titleStyle!.getView(forContainer: bar)
         if presentingViewController == nil {
-            if let titleAttributes = navigationController!.navigationBar.titleTextAttributes {
-                navBarTitle.textColor = titleAttributes[.foregroundColor] as? UIColor
+            if let titleAttributes = navigationController!.navigationBar.titleTextAttributes as [NSAttributedString.Key : Any]? {
+                navBarTitle.color = titleAttributes[NSAttributedString.Key.foregroundColor] as? UIColor
             }
         }
         else {
-            navBarTitle.textColor = self.titleColor
+            navBarTitle.color = self.titleColor
         }
-        navBarTitle.shadowOffset = CGSize(width: 0, height: 1);
-        navBarTitle.font = UIFont(name: "HelveticaNeue-Medium", size: 17.0)
-        navBarTitle.textAlignment = .center
-        navigationItem.titleView = navBarTitle;
-        
+
+        navigationItem.titleView = navBarTitle
+        navigationItem.titleView?.layoutIfNeeded()
         super.viewWillAppear(true)
         
         if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone) {
@@ -300,7 +300,7 @@ extension SwiftWebVC: WKNavigationDelegate {
         
         webView.evaluateJavaScript("document.title", completionHandler: {(response, error) in
             self.navBarTitle.text = response as! String?
-            self.navBarTitle.sizeToFit()
+            self.navBarTitle.textAlignment = .left
             self.updateToolbarItems()
         })
         

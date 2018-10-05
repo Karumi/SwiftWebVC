@@ -90,11 +90,16 @@ public class SwiftWebVC: UIViewController {
     }
     
     public convenience init(urlString: String, sharingEnabled: Bool = true) {
-        var urlString = urlString
-        if !urlString.hasPrefix("https://") && !urlString.hasPrefix("http://") {
-            urlString = "https://"+urlString
+        self.init(pageURL: URL(string: SwiftWebVC.sanitize(url: urlString))!, sharingEnabled: sharingEnabled)
+    }
+
+    private static func sanitize(url: String) -> String {
+        var url = url
+        if !url.hasPrefix("https://") && !url.hasPrefix("http://") {
+            url = "https://"+url
         }
-        self.init(pageURL: URL(string: urlString)!, sharingEnabled: sharingEnabled)
+
+        return url
     }
     
     public convenience init(pageURL: URL, sharingEnabled: Bool = true) {
@@ -109,8 +114,16 @@ public class SwiftWebVC: UIViewController {
     
     func loadRequest(_ request: URLRequest) {
         webView.load(request)
+        
     }
-    
+
+    func load(url: String) {
+        if let url = URL(string: SwiftWebVC.sanitize(url: url)) {
+            request = URLRequest(url: url)
+            loadRequest(request)
+        }
+    }
+
     ////////////////////////////////////////////////
     // View Lifecycle
     

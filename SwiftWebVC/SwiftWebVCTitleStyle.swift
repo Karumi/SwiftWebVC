@@ -8,16 +8,16 @@
 
 import UIKit
 
-typealias UIViewWithText = HasText & UIView
+public typealias UIViewWithText = HasText & UIView
 
-protocol HasText {
+public protocol HasText {
     var text: String? { get set }
     var textAlignment: NSTextAlignment { get set }
     var color: UIColor? { get set }
 }
 
 extension UITextField: HasText {
-    var color: UIColor? {
+    public var color: UIColor? {
         get {
             return textColor
         }
@@ -27,8 +27,8 @@ extension UITextField: HasText {
     }
 }
 
-class UILabelAutoSize: UILabel, HasText {
-    override var text: String? {
+open class UILabelAutoSize: UILabel, HasText {
+    override open var text: String? {
         set {
             super.text = newValue
             sizeToFit()
@@ -39,7 +39,7 @@ class UILabelAutoSize: UILabel, HasText {
         }
     }
 
-    var color: UIColor? {
+    public var color: UIColor? {
         get {
             return textColor
         }
@@ -49,14 +49,14 @@ class UILabelAutoSize: UILabel, HasText {
     }
 }
 
-protocol SwiftWebVCTitleStyle {
+public protocol SwiftWebVCTitleStyle {
     func getView(forContainer: UIView) -> UIViewWithText
 }
 
-class PlainSwiftWebVCTitleStyle: SwiftWebVCTitleStyle {
+open class PlainSwiftWebVCTitleStyle: SwiftWebVCTitleStyle {
     private var label: UILabel?
 
-    func getView(forContainer: UIView) -> UIViewWithText {
+    public func getView(forContainer: UIView) -> UIViewWithText {
         label = UILabelAutoSize()
         label!.backgroundColor = .clear
         label!.font = UIFont(name: "HelveticaNeue-Small", size: 17.0)
@@ -65,11 +65,11 @@ class PlainSwiftWebVCTitleStyle: SwiftWebVCTitleStyle {
     }
 }
 
-class EditableSwiftWebVCTitleStyle: SwiftWebVCTitleStyle {
+open class EditableSwiftWebVCTitleStyle: SwiftWebVCTitleStyle {
     private var textField: UITextField?
 
 
-    func getView(forContainer: UIView) -> UIViewWithText {
+    public func getView(forContainer: UIView) -> UIViewWithText {
         let baseBounds = forContainer.bounds
         textField = UITextField(frame: CGRect(origin: .zero,
                                               size: CGSize(width: baseBounds.width * 0.75,

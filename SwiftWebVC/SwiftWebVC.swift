@@ -76,7 +76,7 @@ open class SwiftWebVC: UIViewController {
     
     var request: URLRequest!
 
-    var titleStyle: SwiftWebVCTitleStyle!
+    public var titleStyle: SwiftWebVCTitleStyle!
     var navBarTitle: UIViewWithText!
     
     var sharingEnabled = true

@@ -13,7 +13,7 @@ public protocol SwiftWebVCDelegate: class {
     func didFinishLoading(success: Bool)
 }
 
-public class SwiftWebVC: UIViewController {
+open class SwiftWebVC: UIViewController {
     
     public weak var delegate: SwiftWebVCDelegate?
     var storedStatusColor: UIBarStyle?
@@ -93,7 +93,7 @@ public class SwiftWebVC: UIViewController {
         self.init(pageURL: URL(string: SwiftWebVC.sanitize(url: urlString))!, sharingEnabled: sharingEnabled)
     }
 
-    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "estimatedProgress" {
             navigationController?.setProgress(Float(webView.estimatedProgress), animated: true)
         }
@@ -133,16 +133,16 @@ public class SwiftWebVC: UIViewController {
     ////////////////////////////////////////////////
     // View Lifecycle
     
-    override public func loadView() {
+    override open func loadView() {
         view = webView
         loadRequest(request)
     }
     
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    override public func viewWillAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         assert(self.navigationController != nil, "SVWebViewController needs to be contained in a UINavigationController. If you are presenting SVWebViewController modally, use SVModalWebViewController instead.")
         
         updateToolbarItems()
@@ -170,7 +170,7 @@ public class SwiftWebVC: UIViewController {
         }
     }
     
-    override public func viewWillDisappear(_ animated: Bool) {
+    override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         
         if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone) {

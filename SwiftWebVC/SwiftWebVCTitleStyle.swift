@@ -56,7 +56,9 @@ public protocol SwiftWebVCTitleStyle {
 open class PlainSwiftWebVCTitleStyle: SwiftWebVCTitleStyle {
     private var label: UILabel?
 
-    public func getView(forContainer: UIView) -> UIViewWithText {
+    public init() {}
+
+    open func getView(forContainer: UIView) -> UIViewWithText {
         label = UILabelAutoSize()
         label!.backgroundColor = .clear
         label!.font = UIFont(name: "HelveticaNeue-Small", size: 17.0)
@@ -68,8 +70,9 @@ open class PlainSwiftWebVCTitleStyle: SwiftWebVCTitleStyle {
 open class EditableSwiftWebVCTitleStyle: SwiftWebVCTitleStyle {
     private var textField: UITextField?
 
+    public init() {}
 
-    public func getView(forContainer: UIView) -> UIViewWithText {
+    open func getView(forContainer: UIView) -> UIViewWithText {
         let baseBounds = forContainer.bounds
         textField = UITextField(frame: CGRect(origin: .zero,
                                               size: CGSize(width: baseBounds.width * 0.75,

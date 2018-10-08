@@ -123,7 +123,7 @@ open class SwiftWebVC: UIViewController {
         
     }
 
-    func load(url: String) {
+    public func load(url: String) {
         if let url = URL(string: SwiftWebVC.sanitize(url: url)) {
             request = URLRequest(url: url)
             loadRequest(request)

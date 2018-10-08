@@ -77,9 +77,9 @@ open class EditableSwiftWebVCTitleStyle: SwiftWebVCTitleStyle {
         textField = UITextField(frame: CGRect(origin: .zero,
                                               size: CGSize(width: baseBounds.width * 0.75,
                                                            height: baseBounds.height * 0.6)))
-        textField!.textAlignment = .left
-        textField!.borderStyle = .roundedRect
-        textField!.backgroundColor = UIColor.white
+        textField!.textAlignment = .center
+        textField!.borderStyle = .none
+        textField!.backgroundColor = UIColor.clear
         return textField!
     }
 }

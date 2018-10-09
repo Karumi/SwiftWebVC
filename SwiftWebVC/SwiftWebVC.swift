@@ -318,7 +318,13 @@ extension SwiftWebVC: WKNavigationDelegate {
         })
         
     }
-    
+
+    public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        self.delegate?.didFinishLoading(success: false)
+        navigationController?.cancelProgress()
+        updateToolbarItems()
+    }
+
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         self.delegate?.didFinishLoading(success: false)
         navigationController?.cancelProgress()
